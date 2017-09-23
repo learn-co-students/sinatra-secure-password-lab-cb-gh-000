@@ -64,7 +64,7 @@ describe 'App' do
       expect{page.get_rack_session_key("user_id")}.to raise_error(KeyError)
     end
 
-    it "displays the user's account page if username and password is given" do
+    it "displa ys the user's account page if username and password is given" do
       @user = User.create(:username => "penelope", :password => "puppies")
       visit '/login'
       fill_in "username", :with => "penelope"
