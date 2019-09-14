@@ -1,4 +1,13 @@
 <h1>Welcome to Flatiron Bank</h1>
 <h2>High Tech E-Banking at your Fingertips</h2>
 
+<% @users.each do |user| %>
+  <p><%= user.username %></p>
+  <p><%= user.password_digest %></p>
+  <p><%= user.password %></p>
+
+  <p> --------- </p>
+
+<% end %>
+
 <p> Please <a href="/signup">Sign Up</a> or <a href="/login">Log In</a> to continue.
