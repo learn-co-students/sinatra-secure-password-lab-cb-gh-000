@@ -1,5 +1,7 @@
 require "./config/environment"
 require "./app/models/user"
+require 'pry'
+
 class ApplicationController < Sinatra::Base
 
   configure do
@@ -17,7 +19,16 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/signup" do
-    #your code here
+    # here we will create user and password in the table if they both exist
+    # otherwise re-direct to failure page
+    # could check for duplicate username
+    # this seems inelegant... want to see how others do it
+    if params[:username] != "" && params[:password] != ""
+      @new_user = User.create(username: params[:username], password: params[:password])
+      redirect to '/login'
+    else
+      redirect to '/failure'
+    end
 
   end
 
@@ -32,7 +43,17 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/login" do
-    ##your code here
+    ## we want to set the session hash if we have been given data to set it with
+    ## otherwise we want to redirect to the failure route
+    ## your code here
+    if params[:username] != "" && params[:password] != ""
+      @new_user = User.find_by(username: params[:username], password: params[:password])
+      session[:user_id] = @new_user.id
+      redirect to '/account'
+    else
+      redirect to '/failure'
+    end
+
   end
 
   get "/failure" do
